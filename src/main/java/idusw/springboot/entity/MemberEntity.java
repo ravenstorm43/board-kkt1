@@ -12,11 +12,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@SequenceGenerator(sequenceName = "ab_member_seq", name = "ab_member_seq_gen",
+@SequenceGenerator(sequenceName = "member_b201912065_seq", name = "member_b201912065_seq_gen",
         initialValue = 1, allocationSize = 1)
 public class MemberEntity extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ab_member_seq_gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_b201912065_seq_gen")
     // Oracle : GenerationType.SEQUENCE, Mysql : GenerationType.IDENTITY
     private Long seq;
 
