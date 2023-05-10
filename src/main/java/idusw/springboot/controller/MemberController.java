@@ -1,6 +1,9 @@
 package idusw.springboot.controller;
 
 import idusw.springboot.domain.Member;
+import idusw.springboot.domain.PageRequestDTO;
+import idusw.springboot.domain.PageResultDTO;
+import idusw.springboot.entity.MemberEntity;
 import idusw.springboot.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -50,12 +53,15 @@ public class MemberController {
         else
             return "/errors/404";
     }
-    @GetMapping(value = "/list")
-    public String listMember2(Model model) {
+    @GetMapping(value = "/list/{pn}/{size}")
+    public String listMemberPaginaion(@PathVariable("pn") int pn, @PathVariable("size") int size, Model model) {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(pn).size(size).build();
+        PageResultDTO<Member, MemberEntity> resultDTO = memberService.getList(pageRequestDTO);
         List<Member> result = null;
-        if((result = memberService.readList()) != null) {
-            model.addAttribute("list", result);
-            return "/members/list2";
+        if(resultDTO != null) {
+            model.addAttribute("list", resultDTO.getDtoList()); // record
+            model.addAttribute("result", resultDTO); // page number list
+            return "/members/list";
         }
         else
             return "/errors/404";
@@ -65,7 +71,7 @@ public class MemberController {
         model.addAttribute("member", Member.builder().build());
         return "/members/register";
     }
-    @PostMapping("/")
+    @PostMapping("/register")
     public String createMember(@ModelAttribute("member") Member member, Model model) { // 등록 처리 -> service -> repository -> service -> controller
         if(memberService.create(member) > 0 ) // 정상적으로 레코드의 변화가 발생하는 경우 영향받는 레코드 수를 반환
             return "redirect:/";
