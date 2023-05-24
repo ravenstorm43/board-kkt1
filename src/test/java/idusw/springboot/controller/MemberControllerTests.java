@@ -23,17 +23,17 @@ public class MemberControllerTests {
     @Autowired
     MemberRepository memberRepository;
 
-    @Test
-    @Transactional  // could not initialize proxy - no Session : Lazy fetch 로 인한 오류
-    void readMember() { // seq를 사용해야 함
-        Member member = new Member();
-        member.setSeq(51L);
-        Member result = null;
-        if((result = memberService.read(member)) != null )
-            System.out.println("조회 성공! " + result.getEmail() + ":::" + result.getName());
-        else
-            System.out.println("조회 실패!");
-    }
+//    @Test
+//    @Transactional  // could not initialize proxy - no Session : Lazy fetch 로 인한 오류
+//    void readMember() { // seq를 사용해야 함
+//        Member member = new Member();
+//        member.setSeq(51L);
+//        Member result = null;
+//        if((result = memberService.read(member)) != null )
+//            System.out.println("조회 성공! " + result.getEmail() + ":::" + result.getName());
+//        else
+//            System.out.println("조회 실패!");
+//    }
 
     @Test
     void readMemberList() {
@@ -74,7 +74,11 @@ public class MemberControllerTests {
     }
     @Test
     public void testPageList() {
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(10).perPage(3).build();
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(5) // 선택한 page
+                .perPage(10) // record 수
+                .perPagination(10) // 페이지 번호 표시 갯수
+                .build();
         PageResultDTO<Member, MemberEntity> resultDTO = memberService.getList(pageRequestDTO);
 
         for(Member member : resultDTO.getDtoList())
@@ -85,9 +89,11 @@ public class MemberControllerTests {
         System.out.println("Prev : " + resultDTO.isPrev());
         System.out.println("Next : " + resultDTO.isNext());
         System.out.println("Total Page : " + resultDTO.getTotalPage());
-        resultDTO.getPageList().forEach(i -> System.out.println(i));
-
+        //resultDTO.getPageList().forEach(i -> System.out.println(i));
+        // Java Lambda : -> , 함수형 인터페이스
         // for(Integer i : resultDTO.getPageList())
         //      System.out.println(i);
+        for(Integer i : resultDTO.getPageList())
+            System.out.format("%d ", i);
     }
 }

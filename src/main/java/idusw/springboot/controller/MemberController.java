@@ -55,8 +55,8 @@ public class MemberController {
 //    }
     @GetMapping(value ={"", "/"})
     public String listMemberPaginaion(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                                      @RequestParam(value = "perPage", required = false, defaultValue = "10") int perPage,
-                                      @RequestParam(value = "perPagination", required = false, defaultValue = "5") int perPagination,
+                                      @RequestParam(value = "per-page", required = false, defaultValue = "10") int perPage,
+                                      @RequestParam(value = "per-pagination", required = false, defaultValue = "5") int perPagination,
                                       @RequestParam(value = "type", required = false, defaultValue = "e") String type,
                                       @RequestParam(value = "keyword", required = false, defaultValue = "@") String keyword,
                                       Model model) {
@@ -69,7 +69,7 @@ public class MemberController {
                 .build();
         PageResultDTO<Member, MemberEntity> resultDTO = memberService.getList(pageRequestDTO);
         if(resultDTO != null) {
-            model.addAttribute("result", resultDTO); // page number list
+            model.addAttribute("result", resultDTO); // page number list, map은 attribute name(Key - unique), attribute value 으로 구성
             return "/members/list";
         }
         else
