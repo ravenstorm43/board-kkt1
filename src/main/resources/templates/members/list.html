@@ -238,11 +238,11 @@
                                             <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                                 <ul class="pagination">
                                                     <li th:if="${result.prev}" th:class="'paginate_button page-item previous ' + ${result.prev?'':'disabled'}" id="dataTable_previous">
-                                                        <a href="#" th:href="@{/members(page=${result.start - 1}, perPage=${result.perPage})}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                                        <a href="#" th:href="@{/members(page=${result.start - 1}, per-page=${result.perPage})}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
                                                     <li th:class="'paginate_button page-item ' + ${result.curPage == page?'active':''}" th:each="page : ${result.pageList}">
-                                                        <a href="#" th:href="@{/members(page=${page}, perPage=${result.perPage})}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a></li>
+                                                        <a href="#" th:href="@{/members(page=${page}, per-page=${result.perPage})}" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">[[${page}]]</a></li>
                                                     <li th:if="${result.next}" th:class="'paginate_button page-item next ' + ${result.next?'':'disabled'} " id="dataTable_next">
-                                                        <a href="#" th:href="@{/members(page=${result.end + 1}, perPage=${result.perPage})}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                                        <a href="#" th:href="@{/members(page=${result.end + 1}, per-page=${result.perPage})}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
                                                 </ul>
                                             </div>
                                         </div>
