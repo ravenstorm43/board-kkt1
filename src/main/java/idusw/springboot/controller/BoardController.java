@@ -7,6 +7,7 @@ import idusw.springboot.service.BoardService;
 import idusw.springboot.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.hibernate.graph.internal.parse.PathQualifierType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,14 @@ public class BoardController {
     }
 
     @GetMapping("")
-    public String getBoards(PageRequestDTO pageRequestDTO, Model model) {
+    public String getBoards(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                            @RequestParam(value = "per-page", required = false, defaultValue = "8") int perPage,
+                            @RequestParam(value = "per-pagination", required = false, defaultValue = "5") int perPagination, Model model) {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(page)
+                .perPage(perPage)
+                .perPagination(perPagination)
+                .build();
         model.addAttribute("list", boardService.findBoardAll(pageRequestDTO));
         return "/boards/list";
     }
