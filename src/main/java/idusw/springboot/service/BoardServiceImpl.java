@@ -50,7 +50,7 @@ public class BoardServiceImpl implements BoardService {
                 pageRequestDTO.getPageable(Sort.by("bno").descending()));
         Function<Object[], Board> fn = (entity -> entityToDto((BoardEntity) entity[0],
                 (MemberEntity) entity[1], (Long) entity[2]));
-        return new PageResultDTO<>(result, fn, 5);
+        return new PageResultDTO<>(result, fn, 8);
     }
 
 
