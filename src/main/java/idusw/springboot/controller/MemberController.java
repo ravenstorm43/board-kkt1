@@ -25,7 +25,7 @@ public class MemberController {
     @GetMapping("/login-form")
     public String getLoginform(Model model) {
         model.addAttribute("member", Member.builder().build()); // email / pw 전달을 위한 객체
-        return "/members/login"; // view : template engine - thymeleaf .html
+        return "/members/login1"; // view : template engine - thymeleaf .html
     }
     @PostMapping("/login")
     public String loginMember(@ModelAttribute("member") Member member, HttpServletRequest request) { // 로그인 처리 -> service -> repository -> service -> controller
